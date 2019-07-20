@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: ${server.name.base}
+  datasource:
+    driver-class-name: ${spring.datasource.base.driver-class-name}
+    url: ${spring.datasource.base.url}
+    username: ${spring.datasource.base.username}
+    password: ${spring.datasource.base.password}
+
+server:
+  port: ${server.port.base}
+  tomcat:
+    uri-encoding: ${project.encoding.charset}
+
+feign:
+  hystrix:
+    enabled: true
+
+logging:
+    level:
+        com:
+            itgo:
+                service:
+                    base:
+                        realize:
+                            mapper: TRACE
+
+
+mybatis:
+  mapperLocations: classpath*:/mappers/*.xml
+

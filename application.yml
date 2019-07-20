@@ -1,0 +1,70 @@
+﻿#  project encoding
+project:
+  encoding:
+    charset: utf-8
+    enabled: true
+# 注册中心
+eureka:
+  #  server:
+  #    enable-self-preservation: false  #自我保护机制 (不推荐关闭)
+  client:
+    service-url:
+      defaultZone: http://localhost:12001/eureka/
+  #      defaultZone: http://eureka1.com:12001/eureka/,http://eureka2.com:12002/eureka/,http://eureka3.com:12003/eureka/
+  instance:
+    instance-id: ${spring.application.name}-${server.port} #更改主机显示名称
+    prefer-ip-address: true #显示IP
+
+server:
+  name:
+    base: base-service
+    web: web-service
+    gateway: gateway-service
+  port:
+    base: 16001
+    web: 18001
+    gateway: 15001
+
+hystrix:
+    command:
+        default:
+            execution:
+              timeout:
+                enabled: true
+              isolation:
+                    thread:
+                        timeoutInMilliseconds: 30000
+#ribbon的超时时间
+ribbon:
+  ReadTimeout: 30000
+  ConnectTimeout: 30000
+
+
+#
+spring:
+  datasource:
+    sql-script-encoding: ${project.encoding.charset}
+    type: com.alibaba.druid.pool.DruidDataSource
+    base:
+      # com.mysql.cj.jdbc.Driver 8.0 版本切换
+      dbName: {cipher}AQBxh28Q/VdwvsPF7TL5TGcWkenCVOW/WePBvxcoZYDj+dzD95gXKVMz+5z8jJR0lhKw5obYhhUy0twphZGxshpQRXrhUQhxcqmClJwb8oDhYumv20eDqrZIjbF2Uk2iUfuFDWHKgLNAt/vG5LB2L5VJ0csVC7H7wZsspahpnWiO2pc5xQDvJByG4O0qCMWIYKgpV7TKQqK8kPiH8vzTy6F2uLNnwJlwNy+UB6255T+b/70wz9HAq76/bl+xWS62hOemyNXqM+9LWJAey0p04MWRwTcMmzOTMsYUPSLCtRnF1Kecj/tScT3joIi8GK70Rngi+ewDl7piazOV+AvUysCu0QLi7qy/gVZkI17UQL21XwQ8TZtfWAJIahMQ8ky0BrA=
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/${spring.datasource.base.dbName}?useSSL=true&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true
+      username: {cipher}AQA4HwuwRNO+7m0QLIAiuIHzNrxXVDFLL8tblKDH2eHY5CT1lzYMUbC7NFd3vZ1VxITNzQnRbBNGZSCSDn7T+XeB0vw6BrLRlm5dKkYUJPTCTnNvLtJpa9VrLGVkTMUNutdx3DjNMEaC4pTSI7QzZzqazY7rtBsxdc867nPrbpeTQAsH/SfEFvTuS1jfy45kMapxSORFW70p+9kTMKHQ3CLTB0FR9vjlTcoIgQvZOeceFq67O6PhojcvHA6X6y5oJYdJ7JZY7itt5L/H1ljkveP4dkUo30GLO/LMfOdqjbhFbN5NgsP8lvJb5rFkyX3T6l60c/hohtz3mYSmYSQiW+Rz/0N4Zny0MBpAs3ptBcXTB4aYG6KsAtRPw220zldyZgw=
+      password: {cipher}AQBGHU7G2A5LMELIXTXrstvfQy/mtp2Wvfc0RBHTqlhit0uatPtST4zcWN/H7hF4tv8doDmqYoIK0RkHFXIEaYJStNO166GcUd5uzdUw7jvnifoAaT3UP5DxQoohR0fVLZzHSEpopnpH5GvCHdx+5ym2lrQaaRSlOEdAJNvsTr0QZCrr/7YPAF8Wg7kgsRQ8BvMiDqOsI71h/0BJdhPvdx2S6SBw05W+lLJ+1b2L8rj6UT6NVwO9WRWl2zFcrDzvIuT/E3nIg6Y+3eJXAk+OKEqplN1MQQjl4AIVLDRC0JKUP5rxyRGZtTxBF/lPc8mRDsrpwFsiW4RFL/xgUHwmz9QaPrDIkK9QkOuClAIxXmj3UUj/ISO9iPvBGLmwYY7aMLM=
+    user:
+      # com.mysql.cj.jdbc.Driver 8.0 版本切换
+      dbName: {cipher}
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/${spring.datasource.user.dbName}?useSSL=true&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true
+      username: {cipher}
+      password: {cipher}
+  http:
+    encoding:
+      charset: ${project.encoding.charset}
+      enabled: ${project.encoding.enabled}
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: {cipher}AQBD4b2Nm90uDIYbMQOSnzyXSncuikE3UAb4nOJSkULSeBimczhCKJ11pjzGtb0YMIY3riBooHjcH9WqnPh3k8ArJsq1FwEXLAnZafPeskdZCnOlL4dLjBcJbxG6hoyafM3efhTSn5IzXsdQooUeUqEnj4DiSyrvW9w2hKTmVPjcDmrdaTZk2nraA5G0D1wLFZ62nzQW0VM7Xu7xyyzMFTmBegxxLtCZPwUjtLNElG+IUceu3q7wrm2AgIbMoKH959SAFmkLOUz+E2U9AnBpuD2IPhN2zqwhHkELBrSpXylXKvbXdiGwNEoSmAol/gcBzGwBT/txfmcU7Ymg0YjJijgyn0lrDoI97EvrxIzcXbaMFxBYUNmU7jn8nRhf2i/Eif8=
+#    password: {cipher}AQBWjpSZvrlUEaVZHlfTCSSNpvXjzm77Ui/4zJ7sK8+Lq7f7UYm3etVwFvPikgLR2VHXHK7q/Woyi69GY1mJFdxrsj0GydUx5M78zVMLFNTNPUPYVSJyOO13GRFzxvibc0LNabwF9DDYYzkpOCFHF7oDrs2v3RLtuQSuZ1AdUIXKj2InUVcqrUD2JmXX6rU2I06txtd5wv4HtIOFFNJ3jhkm7vcEKKOGje+2/P6ZHHGT6XrAr+ofeV4xWJubKtURD3wvlO5QqeR98NzI5FSVD/i0cyh4gtjrNp/aWG9J4hw0RHqLv7JJgSR+T8mKDHaC4ggSaeupb0UqhRZJL3stb1R9pKTBCtCwKV/rnd7BNNlKYty808l0JoYh4M4KY+DnffM=
