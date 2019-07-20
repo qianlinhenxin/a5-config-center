@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: ${server.name.facedevice}
+  datasource:
+    driver-class-name: ${spring.datasource.facedevice.driver-class-name}
+    url: ${spring.datasource.facedevice.url}
+    username: ${spring.datasource.facedevice.username}
+    password: ${spring.datasource.facedevice.password}
+  resources:
+    static-locations: file:D:/aivms5_image
+  mvc:
+    static-path-pattern: /**
+
+server:
+  port: ${server.port.facedevice}
+  tomcat:
+    uri-encoding: ${project.encoding.charset}
+
+feign:
+  hystrix:
+    enabled: true
+
+#logging:
+#    level:
+#        com:
+#            itgo:
+#                service:
+#                    facedevice:
+#                        realize:
+#                            mapper: TRACE
+
+
+mybatis:
+  mapperLocations: classpath*:/mappers/*.xml
+

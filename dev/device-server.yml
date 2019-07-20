@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: ${server.name.device}
+  datasource:
+    driver-class-name: ${spring.datasource.device.driver-class-name}
+    url: ${spring.datasource.device.url}
+    username: ${spring.datasource.device.username}
+    password: ${spring.datasource.device.password}
+  resources:
+    static-locations: file:D:/aivms5_image
+  mvc:
+    static-path-pattern: /**
+
+server:
+  port: ${server.port.device}
+  tomcat:
+    uri-encoding: ${project.encoding.charset}
+
+feign:
+  hystrix:
+    enabled: true
+
+#logging:
+#    level:
+#        com:
+#            itgo:
+#                service:
+#                    device:
+#                        realize:
+#                            mapper: TRACE
+
+
+mybatis:
+  mapperLocations: classpath*:/mappers/*.xml
+

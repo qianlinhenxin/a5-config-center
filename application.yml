@@ -9,21 +9,52 @@ eureka:
   #    enable-self-preservation: false  #自我保护机制 (不推荐关闭)
   client:
     service-url:
-      defaultZone: http://localhost:12001/eureka/
+      defaultZone: http://202.142.28.62:12001/eureka/
   #      defaultZone: http://eureka1.com:12001/eureka/,http://eureka2.com:12002/eureka/,http://eureka3.com:12003/eureka/
   instance:
     instance-id: ${spring.application.name}-${server.port} #更改主机显示名称
     prefer-ip-address: true #显示IP
 
+
 server:
   name:
     base: base-service
-    web: web-service
-    gateway: gateway-service
+    control: control-service
+    device: device-service
+    door: door-service
+    facedevice: facedevice-service
+    logger: gateway-service
+    wechat: wechat-service
   port:
     base: 16001
-    web: 18001
-    gateway: 15001
+    control: 16002
+    device: 16003
+    door: 16004
+    facedevice: 16005
+    logger: 16007
+    wechat: 16008
+
+web:
+  name:
+    base: web-base-service
+    control: web-control-service
+    device: web-device-service
+    door: web-door-service
+    facedevice: web-facedevice-service
+    gateway: web-gateway-service
+    logger: web-logger-service
+    wechat: web-wechat-service
+  port:
+    base: 16011
+    control: 16012
+    device: 16013
+    door: 16014
+    facedevice: 16015
+    gateway: 16016
+    logger: 16017
+    wechat: 16018
+
+
 
 hystrix:
     command:
@@ -47,24 +78,76 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     base:
       # com.mysql.cj.jdbc.Driver 8.0 版本切换
-      dbName: {cipher}AQBxh28Q/VdwvsPF7TL5TGcWkenCVOW/WePBvxcoZYDj+dzD95gXKVMz+5z8jJR0lhKw5obYhhUy0twphZGxshpQRXrhUQhxcqmClJwb8oDhYumv20eDqrZIjbF2Uk2iUfuFDWHKgLNAt/vG5LB2L5VJ0csVC7H7wZsspahpnWiO2pc5xQDvJByG4O0qCMWIYKgpV7TKQqK8kPiH8vzTy6F2uLNnwJlwNy+UB6255T+b/70wz9HAq76/bl+xWS62hOemyNXqM+9LWJAey0p04MWRwTcMmzOTMsYUPSLCtRnF1Kecj/tScT3joIi8GK70Rngi+ewDl7piazOV+AvUysCu0QLi7qy/gVZkI17UQL21XwQ8TZtfWAJIahMQ8ky0BrA=
+      dbName: {cipher}AQAxoI0k4djrnhdrffTg9ILmqhBo6d4XXI/buEBZSszfFde3zJrh4ZMUGl4jRDo3mJGc46tcahJuKkmDOFN0c3RVWD6ieuSd9KVvaNGjKPtg7kZ0phRejDJVI1yCbXSPDUqW6w60dIfYZMELd6tGHnS3bXHTI3I3Knfa75a7W/jbyf1vRMWwJDWSL+EmtSE8nDZQaUcBabRpPIFJ2g4oxTnro+oUezV8jQjPGdBc5HlfL5t5Fi3WKlmiRRAxJQGgH8LvP7Dh1COjkYFGvk3hD+7OTaJhrK4sk58iXBAj7rwlTTQIv2NRdmYpA/MBUpcSUKkO9+3qNn5gX5iNzi5w3oZn68k0Ucid52dDFLZYg2kXXQF7z7VB67eCw8U/Rsy6JhI=
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/${spring.datasource.base.dbName}?useSSL=true&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true
-      username: {cipher}AQA4HwuwRNO+7m0QLIAiuIHzNrxXVDFLL8tblKDH2eHY5CT1lzYMUbC7NFd3vZ1VxITNzQnRbBNGZSCSDn7T+XeB0vw6BrLRlm5dKkYUJPTCTnNvLtJpa9VrLGVkTMUNutdx3DjNMEaC4pTSI7QzZzqazY7rtBsxdc867nPrbpeTQAsH/SfEFvTuS1jfy45kMapxSORFW70p+9kTMKHQ3CLTB0FR9vjlTcoIgQvZOeceFq67O6PhojcvHA6X6y5oJYdJ7JZY7itt5L/H1ljkveP4dkUo30GLO/LMfOdqjbhFbN5NgsP8lvJb5rFkyX3T6l60c/hohtz3mYSmYSQiW+Rz/0N4Zny0MBpAs3ptBcXTB4aYG6KsAtRPw220zldyZgw=
-      password: {cipher}AQBGHU7G2A5LMELIXTXrstvfQy/mtp2Wvfc0RBHTqlhit0uatPtST4zcWN/H7hF4tv8doDmqYoIK0RkHFXIEaYJStNO166GcUd5uzdUw7jvnifoAaT3UP5DxQoohR0fVLZzHSEpopnpH5GvCHdx+5ym2lrQaaRSlOEdAJNvsTr0QZCrr/7YPAF8Wg7kgsRQ8BvMiDqOsI71h/0BJdhPvdx2S6SBw05W+lLJ+1b2L8rj6UT6NVwO9WRWl2zFcrDzvIuT/E3nIg6Y+3eJXAk+OKEqplN1MQQjl4AIVLDRC0JKUP5rxyRGZtTxBF/lPc8mRDsrpwFsiW4RFL/xgUHwmz9QaPrDIkK9QkOuClAIxXmj3UUj/ISO9iPvBGLmwYY7aMLM=
-    user:
+      url: jdbc:mysql://202.142.28.62:33007/${spring.datasource.base.dbName}?useSSL=true&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true
+      username: {cipher}AQANeaUl85JhUJjxe5gy9vGnqfnvm2p5M0cKqDqAfeOzHvKr3OVgNinnwJZso455XaVMRbgGWhAQra6lzYihhUeJYKHjm4+BF3Onr8hwdH433uF4P28u13IfrG1gjZGbzhst7k3QkW/qggZAFQB6l31lAtT4+0DKj+1HYVz0UIKMhijsVvCaPyw4s8IJnMXWlf6jMLdHoB1LRgWJ21IV7v+UfE4XtZOfQhM3wCL6cGuwj1tfMCcOlgTs1AjUeTUzTAUPX1hXxCviS8JBAhDir2hmGmQxWioAf6e89/1TONLIpknd9aRW5KM4SuQfayQTi1T6m3fyNw9StyDvUezMKsOin2naXFfrnOQhUa+K4aViBXxEoccp+z26ivzmUJTbNGI=
+      password: {cipher}AQCB+iRpVT8Lrf6pW9tg6140vcgs9pgMcKoHuhd12Zb5//KdRH1s514+udc+8WARKg48E09C8Z4OV9VeBBPX8N/Sk+TYGuHP9HUG+DlY3OhesnaHz9gqurvkNma/JG1qSHkxR+TKdcFzz62vxrht+ZEAU02lthsBxCzHYcrhv62LbqMhIpHYqC9Hk86HYC0FklqtR8JNbRtb6RprY9jHHe47VNIoyoR4vpIiJvbyFAn2fMsLDKI0+R6AZv7NRYAiE8qY45JK9qIu13//YbWdKJ1jKlL0uOFVSVzx1VsTt/8pguYE5LTwI55tEuTJFATdeAyS84Wdnh9y9uHofMGYDevQIPwsbxUVRzTABhVTEMFjOpH2FEsYFrCIV59ZVcwbouM=
+    door:
       # com.mysql.cj.jdbc.Driver 8.0 版本切换
-      dbName: {cipher}
-      driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/${spring.datasource.user.dbName}?useSSL=true&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true
-      username: {cipher}
-      password: {cipher}
+      dbName: {cipher}AQAxoI0k4djrnhdrffTg9ILmqhBo6d4XXI/buEBZSszfFde3zJrh4ZMUGl4jRDo3mJGc46tcahJuKkmDOFN0c3RVWD6ieuSd9KVvaNGjKPtg7kZ0phRejDJVI1yCbXSPDUqW6w60dIfYZMELd6tGHnS3bXHTI3I3Knfa75a7W/jbyf1vRMWwJDWSL+EmtSE8nDZQaUcBabRpPIFJ2g4oxTnro+oUezV8jQjPGdBc5HlfL5t5Fi3WKlmiRRAxJQGgH8LvP7Dh1COjkYFGvk3hD+7OTaJhrK4sk58iXBAj7rwlTTQIv2NRdmYpA/MBUpcSUKkO9+3qNn5gX5iNzi5w3oZn68k0Ucid52dDFLZYg2kXXQF7z7VB67eCw8U/Rsy6JhI=
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://202.142.28.62:33007/${spring.datasource.door.dbName}?useSSL=true&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true
+      username: {cipher}AQANeaUl85JhUJjxe5gy9vGnqfnvm2p5M0cKqDqAfeOzHvKr3OVgNinnwJZso455XaVMRbgGWhAQra6lzYihhUeJYKHjm4+BF3Onr8hwdH433uF4P28u13IfrG1gjZGbzhst7k3QkW/qggZAFQB6l31lAtT4+0DKj+1HYVz0UIKMhijsVvCaPyw4s8IJnMXWlf6jMLdHoB1LRgWJ21IV7v+UfE4XtZOfQhM3wCL6cGuwj1tfMCcOlgTs1AjUeTUzTAUPX1hXxCviS8JBAhDir2hmGmQxWioAf6e89/1TONLIpknd9aRW5KM4SuQfayQTi1T6m3fyNw9StyDvUezMKsOin2naXFfrnOQhUa+K4aViBXxEoccp+z26ivzmUJTbNGI=
+      password: {cipher}AQCB+iRpVT8Lrf6pW9tg6140vcgs9pgMcKoHuhd12Zb5//KdRH1s514+udc+8WARKg48E09C8Z4OV9VeBBPX8N/Sk+TYGuHP9HUG+DlY3OhesnaHz9gqurvkNma/JG1qSHkxR+TKdcFzz62vxrht+ZEAU02lthsBxCzHYcrhv62LbqMhIpHYqC9Hk86HYC0FklqtR8JNbRtb6RprY9jHHe47VNIoyoR4vpIiJvbyFAn2fMsLDKI0+R6AZv7NRYAiE8qY45JK9qIu13//YbWdKJ1jKlL0uOFVSVzx1VsTt/8pguYE5LTwI55tEuTJFATdeAyS84Wdnh9y9uHofMGYDevQIPwsbxUVRzTABhVTEMFjOpH2FEsYFrCIV59ZVcwbouM=
+    control:
+      # com.mysql.cj.jdbc.Driver 8.0 版本切换
+      dbName: {cipher}AQAxoI0k4djrnhdrffTg9ILmqhBo6d4XXI/buEBZSszfFde3zJrh4ZMUGl4jRDo3mJGc46tcahJuKkmDOFN0c3RVWD6ieuSd9KVvaNGjKPtg7kZ0phRejDJVI1yCbXSPDUqW6w60dIfYZMELd6tGHnS3bXHTI3I3Knfa75a7W/jbyf1vRMWwJDWSL+EmtSE8nDZQaUcBabRpPIFJ2g4oxTnro+oUezV8jQjPGdBc5HlfL5t5Fi3WKlmiRRAxJQGgH8LvP7Dh1COjkYFGvk3hD+7OTaJhrK4sk58iXBAj7rwlTTQIv2NRdmYpA/MBUpcSUKkO9+3qNn5gX5iNzi5w3oZn68k0Ucid52dDFLZYg2kXXQF7z7VB67eCw8U/Rsy6JhI=
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://202.142.28.62:33007/${spring.datasource.control.dbName}?useSSL=true&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true
+      username: {cipher}AQANeaUl85JhUJjxe5gy9vGnqfnvm2p5M0cKqDqAfeOzHvKr3OVgNinnwJZso455XaVMRbgGWhAQra6lzYihhUeJYKHjm4+BF3Onr8hwdH433uF4P28u13IfrG1gjZGbzhst7k3QkW/qggZAFQB6l31lAtT4+0DKj+1HYVz0UIKMhijsVvCaPyw4s8IJnMXWlf6jMLdHoB1LRgWJ21IV7v+UfE4XtZOfQhM3wCL6cGuwj1tfMCcOlgTs1AjUeTUzTAUPX1hXxCviS8JBAhDir2hmGmQxWioAf6e89/1TONLIpknd9aRW5KM4SuQfayQTi1T6m3fyNw9StyDvUezMKsOin2naXFfrnOQhUa+K4aViBXxEoccp+z26ivzmUJTbNGI=
+      password: {cipher}AQCB+iRpVT8Lrf6pW9tg6140vcgs9pgMcKoHuhd12Zb5//KdRH1s514+udc+8WARKg48E09C8Z4OV9VeBBPX8N/Sk+TYGuHP9HUG+DlY3OhesnaHz9gqurvkNma/JG1qSHkxR+TKdcFzz62vxrht+ZEAU02lthsBxCzHYcrhv62LbqMhIpHYqC9Hk86HYC0FklqtR8JNbRtb6RprY9jHHe47VNIoyoR4vpIiJvbyFAn2fMsLDKI0+R6AZv7NRYAiE8qY45JK9qIu13//YbWdKJ1jKlL0uOFVSVzx1VsTt/8pguYE5LTwI55tEuTJFATdeAyS84Wdnh9y9uHofMGYDevQIPwsbxUVRzTABhVTEMFjOpH2FEsYFrCIV59ZVcwbouM=
+    device:
+      # com.mysql.cj.jdbc.Driver 8.0 版本切换
+      dbName: {cipher}AQAxoI0k4djrnhdrffTg9ILmqhBo6d4XXI/buEBZSszfFde3zJrh4ZMUGl4jRDo3mJGc46tcahJuKkmDOFN0c3RVWD6ieuSd9KVvaNGjKPtg7kZ0phRejDJVI1yCbXSPDUqW6w60dIfYZMELd6tGHnS3bXHTI3I3Knfa75a7W/jbyf1vRMWwJDWSL+EmtSE8nDZQaUcBabRpPIFJ2g4oxTnro+oUezV8jQjPGdBc5HlfL5t5Fi3WKlmiRRAxJQGgH8LvP7Dh1COjkYFGvk3hD+7OTaJhrK4sk58iXBAj7rwlTTQIv2NRdmYpA/MBUpcSUKkO9+3qNn5gX5iNzi5w3oZn68k0Ucid52dDFLZYg2kXXQF7z7VB67eCw8U/Rsy6JhI=
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://202.142.28.62:33007/${spring.datasource.device.dbName}?useSSL=true&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true
+      username: {cipher}AQANeaUl85JhUJjxe5gy9vGnqfnvm2p5M0cKqDqAfeOzHvKr3OVgNinnwJZso455XaVMRbgGWhAQra6lzYihhUeJYKHjm4+BF3Onr8hwdH433uF4P28u13IfrG1gjZGbzhst7k3QkW/qggZAFQB6l31lAtT4+0DKj+1HYVz0UIKMhijsVvCaPyw4s8IJnMXWlf6jMLdHoB1LRgWJ21IV7v+UfE4XtZOfQhM3wCL6cGuwj1tfMCcOlgTs1AjUeTUzTAUPX1hXxCviS8JBAhDir2hmGmQxWioAf6e89/1TONLIpknd9aRW5KM4SuQfayQTi1T6m3fyNw9StyDvUezMKsOin2naXFfrnOQhUa+K4aViBXxEoccp+z26ivzmUJTbNGI=
+      password: {cipher}AQCB+iRpVT8Lrf6pW9tg6140vcgs9pgMcKoHuhd12Zb5//KdRH1s514+udc+8WARKg48E09C8Z4OV9VeBBPX8N/Sk+TYGuHP9HUG+DlY3OhesnaHz9gqurvkNma/JG1qSHkxR+TKdcFzz62vxrht+ZEAU02lthsBxCzHYcrhv62LbqMhIpHYqC9Hk86HYC0FklqtR8JNbRtb6RprY9jHHe47VNIoyoR4vpIiJvbyFAn2fMsLDKI0+R6AZv7NRYAiE8qY45JK9qIu13//YbWdKJ1jKlL0uOFVSVzx1VsTt/8pguYE5LTwI55tEuTJFATdeAyS84Wdnh9y9uHofMGYDevQIPwsbxUVRzTABhVTEMFjOpH2FEsYFrCIV59ZVcwbouM=
+    facedevice:
+      # com.mysql.cj.jdbc.Driver 8.0 版本切换
+      dbName: {cipher}AQAxoI0k4djrnhdrffTg9ILmqhBo6d4XXI/buEBZSszfFde3zJrh4ZMUGl4jRDo3mJGc46tcahJuKkmDOFN0c3RVWD6ieuSd9KVvaNGjKPtg7kZ0phRejDJVI1yCbXSPDUqW6w60dIfYZMELd6tGHnS3bXHTI3I3Knfa75a7W/jbyf1vRMWwJDWSL+EmtSE8nDZQaUcBabRpPIFJ2g4oxTnro+oUezV8jQjPGdBc5HlfL5t5Fi3WKlmiRRAxJQGgH8LvP7Dh1COjkYFGvk3hD+7OTaJhrK4sk58iXBAj7rwlTTQIv2NRdmYpA/MBUpcSUKkO9+3qNn5gX5iNzi5w3oZn68k0Ucid52dDFLZYg2kXXQF7z7VB67eCw8U/Rsy6JhI=
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://202.142.28.62:33007/${spring.datasource.facedevice.dbName}?useSSL=true&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true
+      username: {cipher}AQANeaUl85JhUJjxe5gy9vGnqfnvm2p5M0cKqDqAfeOzHvKr3OVgNinnwJZso455XaVMRbgGWhAQra6lzYihhUeJYKHjm4+BF3Onr8hwdH433uF4P28u13IfrG1gjZGbzhst7k3QkW/qggZAFQB6l31lAtT4+0DKj+1HYVz0UIKMhijsVvCaPyw4s8IJnMXWlf6jMLdHoB1LRgWJ21IV7v+UfE4XtZOfQhM3wCL6cGuwj1tfMCcOlgTs1AjUeTUzTAUPX1hXxCviS8JBAhDir2hmGmQxWioAf6e89/1TONLIpknd9aRW5KM4SuQfayQTi1T6m3fyNw9StyDvUezMKsOin2naXFfrnOQhUa+K4aViBXxEoccp+z26ivzmUJTbNGI=
+      password: {cipher}AQCB+iRpVT8Lrf6pW9tg6140vcgs9pgMcKoHuhd12Zb5//KdRH1s514+udc+8WARKg48E09C8Z4OV9VeBBPX8N/Sk+TYGuHP9HUG+DlY3OhesnaHz9gqurvkNma/JG1qSHkxR+TKdcFzz62vxrht+ZEAU02lthsBxCzHYcrhv62LbqMhIpHYqC9Hk86HYC0FklqtR8JNbRtb6RprY9jHHe47VNIoyoR4vpIiJvbyFAn2fMsLDKI0+R6AZv7NRYAiE8qY45JK9qIu13//YbWdKJ1jKlL0uOFVSVzx1VsTt/8pguYE5LTwI55tEuTJFATdeAyS84Wdnh9y9uHofMGYDevQIPwsbxUVRzTABhVTEMFjOpH2FEsYFrCIV59ZVcwbouM=
+    wechat:
+      # com.mysql.cj.jdbc.Driver 8.0 版本切换
+      dbName: {cipher}AQAxoI0k4djrnhdrffTg9ILmqhBo6d4XXI/buEBZSszfFde3zJrh4ZMUGl4jRDo3mJGc46tcahJuKkmDOFN0c3RVWD6ieuSd9KVvaNGjKPtg7kZ0phRejDJVI1yCbXSPDUqW6w60dIfYZMELd6tGHnS3bXHTI3I3Knfa75a7W/jbyf1vRMWwJDWSL+EmtSE8nDZQaUcBabRpPIFJ2g4oxTnro+oUezV8jQjPGdBc5HlfL5t5Fi3WKlmiRRAxJQGgH8LvP7Dh1COjkYFGvk3hD+7OTaJhrK4sk58iXBAj7rwlTTQIv2NRdmYpA/MBUpcSUKkO9+3qNn5gX5iNzi5w3oZn68k0Ucid52dDFLZYg2kXXQF7z7VB67eCw8U/Rsy6JhI=
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://202.142.28.62:33007/${spring.datasource.wechat.dbName}?useSSL=true&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true
+      username: {cipher}AQANeaUl85JhUJjxe5gy9vGnqfnvm2p5M0cKqDqAfeOzHvKr3OVgNinnwJZso455XaVMRbgGWhAQra6lzYihhUeJYKHjm4+BF3Onr8hwdH433uF4P28u13IfrG1gjZGbzhst7k3QkW/qggZAFQB6l31lAtT4+0DKj+1HYVz0UIKMhijsVvCaPyw4s8IJnMXWlf6jMLdHoB1LRgWJ21IV7v+UfE4XtZOfQhM3wCL6cGuwj1tfMCcOlgTs1AjUeTUzTAUPX1hXxCviS8JBAhDir2hmGmQxWioAf6e89/1TONLIpknd9aRW5KM4SuQfayQTi1T6m3fyNw9StyDvUezMKsOin2naXFfrnOQhUa+K4aViBXxEoccp+z26ivzmUJTbNGI=
+      password: {cipher}AQCB+iRpVT8Lrf6pW9tg6140vcgs9pgMcKoHuhd12Zb5//KdRH1s514+udc+8WARKg48E09C8Z4OV9VeBBPX8N/Sk+TYGuHP9HUG+DlY3OhesnaHz9gqurvkNma/JG1qSHkxR+TKdcFzz62vxrht+ZEAU02lthsBxCzHYcrhv62LbqMhIpHYqC9Hk86HYC0FklqtR8JNbRtb6RprY9jHHe47VNIoyoR4vpIiJvbyFAn2fMsLDKI0+R6AZv7NRYAiE8qY45JK9qIu13//YbWdKJ1jKlL0uOFVSVzx1VsTt/8pguYE5LTwI55tEuTJFATdeAyS84Wdnh9y9uHofMGYDevQIPwsbxUVRzTABhVTEMFjOpH2FEsYFrCIV59ZVcwbouM=
+    auth:
+      # com.mysql.cj.jdbc.Driver 8.0 版本切换
+      dbName: {cipher}AQAxoI0k4djrnhdrffTg9ILmqhBo6d4XXI/buEBZSszfFde3zJrh4ZMUGl4jRDo3mJGc46tcahJuKkmDOFN0c3RVWD6ieuSd9KVvaNGjKPtg7kZ0phRejDJVI1yCbXSPDUqW6w60dIfYZMELd6tGHnS3bXHTI3I3Knfa75a7W/jbyf1vRMWwJDWSL+EmtSE8nDZQaUcBabRpPIFJ2g4oxTnro+oUezV8jQjPGdBc5HlfL5t5Fi3WKlmiRRAxJQGgH8LvP7Dh1COjkYFGvk3hD+7OTaJhrK4sk58iXBAj7rwlTTQIv2NRdmYpA/MBUpcSUKkO9+3qNn5gX5iNzi5w3oZn68k0Ucid52dDFLZYg2kXXQF7z7VB67eCw8U/Rsy6JhI=
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://202.142.28.62:33007/${spring.datasource.auth.dbName}?useSSL=true&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true
+      username: {cipher}AQANeaUl85JhUJjxe5gy9vGnqfnvm2p5M0cKqDqAfeOzHvKr3OVgNinnwJZso455XaVMRbgGWhAQra6lzYihhUeJYKHjm4+BF3Onr8hwdH433uF4P28u13IfrG1gjZGbzhst7k3QkW/qggZAFQB6l31lAtT4+0DKj+1HYVz0UIKMhijsVvCaPyw4s8IJnMXWlf6jMLdHoB1LRgWJ21IV7v+UfE4XtZOfQhM3wCL6cGuwj1tfMCcOlgTs1AjUeTUzTAUPX1hXxCviS8JBAhDir2hmGmQxWioAf6e89/1TONLIpknd9aRW5KM4SuQfayQTi1T6m3fyNw9StyDvUezMKsOin2naXFfrnOQhUa+K4aViBXxEoccp+z26ivzmUJTbNGI=
+      password: {cipher}AQCB+iRpVT8Lrf6pW9tg6140vcgs9pgMcKoHuhd12Zb5//KdRH1s514+udc+8WARKg48E09C8Z4OV9VeBBPX8N/Sk+TYGuHP9HUG+DlY3OhesnaHz9gqurvkNma/JG1qSHkxR+TKdcFzz62vxrht+ZEAU02lthsBxCzHYcrhv62LbqMhIpHYqC9Hk86HYC0FklqtR8JNbRtb6RprY9jHHe47VNIoyoR4vpIiJvbyFAn2fMsLDKI0+R6AZv7NRYAiE8qY45JK9qIu13//YbWdKJ1jKlL0uOFVSVzx1VsTt/8pguYE5LTwI55tEuTJFATdeAyS84Wdnh9y9uHofMGYDevQIPwsbxUVRzTABhVTEMFjOpH2FEsYFrCIV59ZVcwbouM=
+    logger:
+      # com.mysql.cj.jdbc.Driver 8.0 版本切换
+      dbName: {cipher}AQAxoI0k4djrnhdrffTg9ILmqhBo6d4XXI/buEBZSszfFde3zJrh4ZMUGl4jRDo3mJGc46tcahJuKkmDOFN0c3RVWD6ieuSd9KVvaNGjKPtg7kZ0phRejDJVI1yCbXSPDUqW6w60dIfYZMELd6tGHnS3bXHTI3I3Knfa75a7W/jbyf1vRMWwJDWSL+EmtSE8nDZQaUcBabRpPIFJ2g4oxTnro+oUezV8jQjPGdBc5HlfL5t5Fi3WKlmiRRAxJQGgH8LvP7Dh1COjkYFGvk3hD+7OTaJhrK4sk58iXBAj7rwlTTQIv2NRdmYpA/MBUpcSUKkO9+3qNn5gX5iNzi5w3oZn68k0Ucid52dDFLZYg2kXXQF7z7VB67eCw8U/Rsy6JhI=
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://202.142.28.62:33007/${spring.datasource.logger.dbName}?useSSL=true&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true
+      username: {cipher}AQANeaUl85JhUJjxe5gy9vGnqfnvm2p5M0cKqDqAfeOzHvKr3OVgNinnwJZso455XaVMRbgGWhAQra6lzYihhUeJYKHjm4+BF3Onr8hwdH433uF4P28u13IfrG1gjZGbzhst7k3QkW/qggZAFQB6l31lAtT4+0DKj+1HYVz0UIKMhijsVvCaPyw4s8IJnMXWlf6jMLdHoB1LRgWJ21IV7v+UfE4XtZOfQhM3wCL6cGuwj1tfMCcOlgTs1AjUeTUzTAUPX1hXxCviS8JBAhDir2hmGmQxWioAf6e89/1TONLIpknd9aRW5KM4SuQfayQTi1T6m3fyNw9StyDvUezMKsOin2naXFfrnOQhUa+K4aViBXxEoccp+z26ivzmUJTbNGI=
+      password: {cipher}AQCB+iRpVT8Lrf6pW9tg6140vcgs9pgMcKoHuhd12Zb5//KdRH1s514+udc+8WARKg48E09C8Z4OV9VeBBPX8N/Sk+TYGuHP9HUG+DlY3OhesnaHz9gqurvkNma/JG1qSHkxR+TKdcFzz62vxrht+ZEAU02lthsBxCzHYcrhv62LbqMhIpHYqC9Hk86HYC0FklqtR8JNbRtb6RprY9jHHe47VNIoyoR4vpIiJvbyFAn2fMsLDKI0+R6AZv7NRYAiE8qY45JK9qIu13//YbWdKJ1jKlL0uOFVSVzx1VsTt/8pguYE5LTwI55tEuTJFATdeAyS84Wdnh9y9uHofMGYDevQIPwsbxUVRzTABhVTEMFjOpH2FEsYFrCIV59ZVcwbouM=
   http:
     encoding:
       charset: ${project.encoding.charset}
       enabled: ${project.encoding.enabled}
-#  rabbitmq:
-#    host: localhost
+  redis:
+    host: 202.142.28.62
+    port: 61379
+    password: {cipher}AQBKe8nd7qi1jzXZhTST9xgt6iml33GBAcF1jw0+k4REHsNczlmygwx2omItxK2GUeQs6yCiQWSqQIHAHbpCn2Pi3YsjYWp3H5Px7i8/uj0czvmU9kBpkzvuMlYqYTKvj+LKl4/+DwnZ1AYFJBREcNN5fLJ/UfBOW+/1lqI6q+vggT34CcVpIs92JW8WaAVN81c0xmHC2rzKAfQlxOfhAYOu59bKptqIAAwxzg4Aea83n6kcg9KYlZ779hDzG/S2cIo4Zi0lRfNZ0xMkfKNsVtuGqayw0lTjs/pdICea/qEancNNR2AXu7zbcxtRUtVPXCnKyGFQevA9Nm4HnoyhigNjXvsTdXKgIV0FAL5EMBuTe3p4k8XPzQiQ1u37Uu0reZk=
+    timeout: 5000
+    database: 0
+  rabbitmq:
+    host: 202.142.28.62
+    port: 5673
+    username: {cipher}AQCcTOkj4yXHQsNbH+UqEfZItOm8JYXHuH6WAIY//r9r3EURIbmMCQQFja6qqikYx36pZKsIo16l0/rZlx3QMfDYGFXMyW7unSJitrF5slls22MRcVdDyxK3u+elJ8RIbL40f7q6UT3OH9Aeg9NfH5pzZWPLc/m1q/0zgd3Cx7KnfHbLRzKzifPh+ab8Fwjk34LOGVNnQ67ZEVFb7QvvbRBYWFnvXobBlYMCyuZk7EpicG6gcYNVgFF/BRYDEJKCw3+F3Mqoj9toMOnWqm6JH1DKR1fYZRXdLn0g9eTMXBhnF5bdB9iPqg2a2WKZ+0nKgqj0u34mArgo9C9GuTzEAgU8izrTDpbag/inRCczvkPbRK920RN4v+bvUXAg44ToiJo=
+    password: {cipher}AQCFVTj6YJuDTNNwop542YQO/HLYknwfPhy+69a6+TWIb5kXuADq3NWNiapW8k295cpTLwwyuFiw5mN+rgi+wc91duud5ePZqJBb9J5zySplzmZHlLYs856NuSd9fP6pcVaP6Jf7uVz69c7AfU/Cc4kNNPEceSGhyada9KjI2ZGnfx323ZgAETWzaqIf26/9uQT1sFTIVvXWHcIKhjeGl6kvJlxvzPbJBM4QB81zTGlM091XsLt5Yf3gzLEdLG/VDsKcBYNULZlaTIabd1V/hVTg3uNho71KlJDkMK0PJfoK1fmVgWpMlV+2FUm+zLQsD34rhqZrp3JuLPchm64FbAmrqJZEQUFqOl6uDZxqV5YsiXrzaxwEE4APEiZ6/pLgQc8=
+#    host: 202.142.28.62
 #    port: 5672
-#    username: {cipher}AQBD4b2Nm90uDIYbMQOSnzyXSncuikE3UAb4nOJSkULSeBimczhCKJ11pjzGtb0YMIY3riBooHjcH9WqnPh3k8ArJsq1FwEXLAnZafPeskdZCnOlL4dLjBcJbxG6hoyafM3efhTSn5IzXsdQooUeUqEnj4DiSyrvW9w2hKTmVPjcDmrdaTZk2nraA5G0D1wLFZ62nzQW0VM7Xu7xyyzMFTmBegxxLtCZPwUjtLNElG+IUceu3q7wrm2AgIbMoKH959SAFmkLOUz+E2U9AnBpuD2IPhN2zqwhHkELBrSpXylXKvbXdiGwNEoSmAol/gcBzGwBT/txfmcU7Ymg0YjJijgyn0lrDoI97EvrxIzcXbaMFxBYUNmU7jn8nRhf2i/Eif8=
-#    password: {cipher}AQBWjpSZvrlUEaVZHlfTCSSNpvXjzm77Ui/4zJ7sK8+Lq7f7UYm3etVwFvPikgLR2VHXHK7q/Woyi69GY1mJFdxrsj0GydUx5M78zVMLFNTNPUPYVSJyOO13GRFzxvibc0LNabwF9DDYYzkpOCFHF7oDrs2v3RLtuQSuZ1AdUIXKj2InUVcqrUD2JmXX6rU2I06txtd5wv4HtIOFFNJ3jhkm7vcEKKOGje+2/P6ZHHGT6XrAr+ofeV4xWJubKtURD3wvlO5QqeR98NzI5FSVD/i0cyh4gtjrNp/aWG9J4hw0RHqLv7JJgSR+T8mKDHaC4ggSaeupb0UqhRZJL3stb1R9pKTBCtCwKV/rnd7BNNlKYty808l0JoYh4M4KY+DnffM=
+#    username: {cipher}
+#    password: {cipher}

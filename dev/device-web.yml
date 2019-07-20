@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: ${web.name.device}
+  resources:
+    static-locations: file:D:/aivms5_image
+  mvc:
+    static-path-pattern: /**
+
+server:
+  port: ${web.port.device}
+  tomcat:
+    uri-encoding: ${project.encoding.charset}

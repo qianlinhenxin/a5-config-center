@@ -6,6 +6,10 @@ spring:
     url: ${spring.datasource.base.url}
     username: ${spring.datasource.base.username}
     password: ${spring.datasource.base.password}
+  resources:
+    static-locations: file:D:/aivms5_image
+  mvc:
+    static-path-pattern: /**
 
 server:
   port: ${server.port.base}
@@ -16,14 +20,14 @@ feign:
   hystrix:
     enabled: true
 
-logging:
-    level:
-        com:
-            itgo:
-                service:
-                    base:
-                        realize:
-                            mapper: TRACE
+#logging:
+#    level:
+#        com:
+#            itgo:
+#                service:
+#                    base:
+#                        realize:
+#                            mapper: TRACE
 
 
 mybatis:
