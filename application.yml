@@ -76,15 +76,10 @@ spring:
   datasource:
       sql-script-encoding: ${project.encoding.charset}
       type: com.alibaba.druid.pool.DruidDataSource
-
   http:
     encoding:
       charset: ${project.encoding.charset}
       enabled: ${project.encoding.enabled}
-  redis:
-
-  rabbitmq:
-
 
 
 database:
