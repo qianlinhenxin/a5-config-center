@@ -82,16 +82,10 @@ spring:
       charset: ${project.encoding.charset}
       enabled: ${project.encoding.enabled}
   redis:
-    host: 202.142.28.62
-    port: 61379
-    password: {cipher}AQBKe8nd7qi1jzXZhTST9xgt6iml33GBAcF1jw0+k4REHsNczlmygwx2omItxK2GUeQs6yCiQWSqQIHAHbpCn2Pi3YsjYWp3H5Px7i8/uj0czvmU9kBpkzvuMlYqYTKvj+LKl4/+DwnZ1AYFJBREcNN5fLJ/UfBOW+/1lqI6q+vggT34CcVpIs92JW8WaAVN81c0xmHC2rzKAfQlxOfhAYOu59bKptqIAAwxzg4Aea83n6kcg9KYlZ779hDzG/S2cIo4Zi0lRfNZ0xMkfKNsVtuGqayw0lTjs/pdICea/qEancNNR2AXu7zbcxtRUtVPXCnKyGFQevA9Nm4HnoyhigNjXvsTdXKgIV0FAL5EMBuTe3p4k8XPzQiQ1u37Uu0reZk=
-    timeout: 5000
-    database: 0
+
   rabbitmq:
-    host: 202.142.28.62
-    port: 5673
-    username: {cipher}AQCcTOkj4yXHQsNbH+UqEfZItOm8JYXHuH6WAIY//r9r3EURIbmMCQQFja6qqikYx36pZKsIo16l0/rZlx3QMfDYGFXMyW7unSJitrF5slls22MRcVdDyxK3u+elJ8RIbL40f7q6UT3OH9Aeg9NfH5pzZWPLc/m1q/0zgd3Cx7KnfHbLRzKzifPh+ab8Fwjk34LOGVNnQ67ZEVFb7QvvbRBYWFnvXobBlYMCyuZk7EpicG6gcYNVgFF/BRYDEJKCw3+F3Mqoj9toMOnWqm6JH1DKR1fYZRXdLn0g9eTMXBhnF5bdB9iPqg2a2WKZ+0nKgqj0u34mArgo9C9GuTzEAgU8izrTDpbag/inRCczvkPbRK920RN4v+bvUXAg44ToiJo=
-    password: {cipher}AQCFVTj6YJuDTNNwop542YQO/HLYknwfPhy+69a6+TWIb5kXuADq3NWNiapW8k295cpTLwwyuFiw5mN+rgi+wc91duud5ePZqJBb9J5zySplzmZHlLYs856NuSd9fP6pcVaP6Jf7uVz69c7AfU/Cc4kNNPEceSGhyada9KjI2ZGnfx323ZgAETWzaqIf26/9uQT1sFTIVvXWHcIKhjeGl6kvJlxvzPbJBM4QB81zTGlM091XsLt5Yf3gzLEdLG/VDsKcBYNULZlaTIabd1V/hVTg3uNho71KlJDkMK0PJfoK1fmVgWpMlV+2FUm+zLQsD34rhqZrp3JuLPchm64FbAmrqJZEQUFqOl6uDZxqV5YsiXrzaxwEE4APEiZ6/pLgQc8=
+
+
 
 database:
   datasource:
@@ -143,3 +137,15 @@ database:
         url: jdbc:mysql://202.142.28.62:33007/${spring.datasource.logger.dbName}?useSSL=true&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true
         username: {cipher}AQANeaUl85JhUJjxe5gy9vGnqfnvm2p5M0cKqDqAfeOzHvKr3OVgNinnwJZso455XaVMRbgGWhAQra6lzYihhUeJYKHjm4+BF3Onr8hwdH433uF4P28u13IfrG1gjZGbzhst7k3QkW/qggZAFQB6l31lAtT4+0DKj+1HYVz0UIKMhijsVvCaPyw4s8IJnMXWlf6jMLdHoB1LRgWJ21IV7v+UfE4XtZOfQhM3wCL6cGuwj1tfMCcOlgTs1AjUeTUzTAUPX1hXxCviS8JBAhDir2hmGmQxWioAf6e89/1TONLIpknd9aRW5KM4SuQfayQTi1T6m3fyNw9StyDvUezMKsOin2naXFfrnOQhUa+K4aViBXxEoccp+z26ivzmUJTbNGI=
         password: {cipher}AQCB+iRpVT8Lrf6pW9tg6140vcgs9pgMcKoHuhd12Zb5//KdRH1s514+udc+8WARKg48E09C8Z4OV9VeBBPX8N/Sk+TYGuHP9HUG+DlY3OhesnaHz9gqurvkNma/JG1qSHkxR+TKdcFzz62vxrht+ZEAU02lthsBxCzHYcrhv62LbqMhIpHYqC9Hk86HYC0FklqtR8JNbRtb6RprY9jHHe47VNIoyoR4vpIiJvbyFAn2fMsLDKI0+R6AZv7NRYAiE8qY45JK9qIu13//YbWdKJ1jKlL0uOFVSVzx1VsTt/8pguYE5LTwI55tEuTJFATdeAyS84Wdnh9y9uHofMGYDevQIPwsbxUVRzTABhVTEMFjOpH2FEsYFrCIV59ZVcwbouM=
+      redis:
+        host: 202.142.28.62
+        port: 61379
+        password: {cipher}AQBKe8nd7qi1jzXZhTST9xgt6iml33GBAcF1jw0+k4REHsNczlmygwx2omItxK2GUeQs6yCiQWSqQIHAHbpCn2Pi3YsjYWp3H5Px7i8/uj0czvmU9kBpkzvuMlYqYTKvj+LKl4/+DwnZ1AYFJBREcNN5fLJ/UfBOW+/1lqI6q+vggT34CcVpIs92JW8WaAVN81c0xmHC2rzKAfQlxOfhAYOu59bKptqIAAwxzg4Aea83n6kcg9KYlZ779hDzG/S2cIo4Zi0lRfNZ0xMkfKNsVtuGqayw0lTjs/pdICea/qEancNNR2AXu7zbcxtRUtVPXCnKyGFQevA9Nm4HnoyhigNjXvsTdXKgIV0FAL5EMBuTe3p4k8XPzQiQ1u37Uu0reZk=
+        timeout: 5000
+        database: 0
+      rabbitmq:
+        host: 202.142.28.62
+        port: 5673
+        username: {cipher}AQCcTOkj4yXHQsNbH+UqEfZItOm8JYXHuH6WAIY//r9r3EURIbmMCQQFja6qqikYx36pZKsIo16l0/rZlx3QMfDYGFXMyW7unSJitrF5slls22MRcVdDyxK3u+elJ8RIbL40f7q6UT3OH9Aeg9NfH5pzZWPLc/m1q/0zgd3Cx7KnfHbLRzKzifPh+ab8Fwjk34LOGVNnQ67ZEVFb7QvvbRBYWFnvXobBlYMCyuZk7EpicG6gcYNVgFF/BRYDEJKCw3+F3Mqoj9toMOnWqm6JH1DKR1fYZRXdLn0g9eTMXBhnF5bdB9iPqg2a2WKZ+0nKgqj0u34mArgo9C9GuTzEAgU8izrTDpbag/inRCczvkPbRK920RN4v+bvUXAg44ToiJo=
+        password: {cipher}AQCFVTj6YJuDTNNwop542YQO/HLYknwfPhy+69a6+TWIb5kXuADq3NWNiapW8k295cpTLwwyuFiw5mN+rgi+wc91duud5ePZqJBb9J5zySplzmZHlLYs856NuSd9fP6pcVaP6Jf7uVz69c7AfU/Cc4kNNPEceSGhyada9KjI2ZGnfx323ZgAETWzaqIf26/9uQT1sFTIVvXWHcIKhjeGl6kvJlxvzPbJBM4QB81zTGlM091XsLt5Yf3gzLEdLG/VDsKcBYNULZlaTIabd1V/hVTg3uNho71KlJDkMK0PJfoK1fmVgWpMlV+2FUm+zLQsD34rhqZrp3JuLPchm64FbAmrqJZEQUFqOl6uDZxqV5YsiXrzaxwEE4APEiZ6/pLgQc8=
+
