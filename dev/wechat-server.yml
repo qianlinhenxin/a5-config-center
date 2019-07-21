@@ -10,17 +10,7 @@ spring:
     static-locations: file:D:/aivms5_image
   mvc:
     static-path-pattern: /**
-  redis:
-    host: ${database.datasource.redis.redis-host}
-    port: ${database.datasource.redis.redis-port}
-    password: ${database.datasource.redis.redis-password}
-    timeout: ${database.datasource.redis.redis-timeout}
-    database: ${database.datasource.redis.redis-database}
-  rabbitmq:
-    host: ${database.datasource.rabbitmq.rabbitmq-host}
-    port: ${database.datasource.rabbitmq.rabbitmq-port}
-    password: ${database.datasource.rabbitmq.rabbitmq-password}
-    username: ${database.datasource.rabbitmq.rabbitmq-username}
+
 
 server:
   port: ${server.port.door}
