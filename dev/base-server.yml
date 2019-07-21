@@ -2,10 +2,10 @@ spring:
   application:
     name: ${server.name.base}
   datasource:
-    driver-class-name: ${spring.datasource.base.driver-class-name}
-    url: ${spring.datasource.base.url}
-    username: ${spring.datasource.base.username}
-    password: ${spring.datasource.base.password}
+    driver-class-name: ${database.datasource.base.driver-class-name}
+    url: ${database.datasource.base.url}
+    username: ${database.datasource.base.username}
+    password: ${database.datasource.base.password}
   resources:
     static-locations: file:D:/aivms5_image
   mvc:

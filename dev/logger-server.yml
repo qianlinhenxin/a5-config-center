@@ -2,10 +2,10 @@ spring:
   application:
     name: ${server.name.logger}
   datasource:
-    driver-class-name: ${spring.datasource.logger.driver-class-name}
-    url: ${spring.datasource.logger.url}
-    username: ${spring.datasource.logger.username}
-    password: ${spring.datasource.logger.password}
+    driver-class-name: ${database.datasource.logger.driver-class-name}
+    url: ${database.datasource.logger.url}
+    username: ${database.datasource.logger.username}
+    password: ${database.datasource.logger.password}
   resources:
     static-locations: file:D:/aivms5_image
   mvc:

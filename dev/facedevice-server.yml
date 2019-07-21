@@ -2,10 +2,10 @@ spring:
   application:
     name: ${server.name.facedevice}
   datasource:
-    driver-class-name: ${spring.datasource.facedevice.driver-class-name}
-    url: ${spring.datasource.facedevice.url}
-    username: ${spring.datasource.facedevice.username}
-    password: ${spring.datasource.facedevice.password}
+    driver-class-name: ${database.datasource.facedevice.driver-class-name}
+    url: ${database.datasource.facedevice.url}
+    username: ${database.datasource.facedevice.username}
+    password: ${database.datasource.facedevice.password}
   resources:
     static-locations: file:D:/aivms5_image
   mvc:
