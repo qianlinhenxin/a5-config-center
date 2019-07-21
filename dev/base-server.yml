@@ -2,25 +2,25 @@ spring:
   application:
     name: ${server.name.base}
   datasource:
-    driver-class-name: ${database.datasource.base.driver-class-name}
-    url: ${database.datasource.base.url}
-    username: ${database.datasource.base.username}
-    password: ${database.datasource.base.password}
+    driver-class-name: ${database.datasource.base.base-driver-class-name}
+    url: ${database.datasource.base.base-url}
+    username: ${database.datasource.base.base-username}
+    password: ${database.datasource.base.base-password}
   resources:
     static-locations: file:D:/aivms5_image
   mvc:
     static-path-pattern: /**
   redis:
-    host: ${database.datasource.redis.host}
-    port: ${database.datasource.redis.port}
-    password: ${database.datasource.redis.password}
-    timeout: ${database.datasource.redis.timeout}
-    database: ${database.datasource.redis.database}
+    host: ${database.datasource.redis.redis-host}
+    port: ${database.datasource.redis.redis-port}
+    password: ${database.datasource.redis.redis-password}
+    timeout: ${database.datasource.redis.redis-timeout}
+    database: ${database.datasource.redis.redis-database}
   rabbitmq:
-    host: ${database.datasource.rabbitmq.host}
-    port: ${database.datasource.rabbitmq.port}
-    password: ${database.datasource.rabbitmq.password}
-    username: ${database.datasource.rabbitmq.username}
+    host: ${database.datasource.rabbitmq.rabbitmq-host}
+    port: ${database.datasource.rabbitmq.rabbitmq-port}
+    password: ${database.datasource.rabbitmq.rabbitmq-password}
+    username: ${database.datasource.rabbitmq.rabbitmq-username}
 
 server:
   port: ${server.port.base}
