@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: ${server.name.logger}
+  datasource:
+    driver-class-name: ${database.datasource.logger.logger-driver-class-name}
+    url: ${database.datasource.logger.logger-url}
+    username: ${database.datasource.logger.logger-username}
+    password: ${database.datasource.logger.logger-password}
+  resources:
+    static-locations: file:D:/aivms5_image
+  mvc:
+    static-path-pattern: /**
+
+
+server:
+  port: ${server.port.logger}
+  tomcat:
+    uri-encoding: ${project.encoding.charset}
+
+feign:
+  hystrix:
+    enabled: true
+
+logging:
+  level:
+    com:
+      itgo:
+        logger:
+          realize:
+            dao: TRACE
+
+
+mybatis:
+  mapperLocations: classpath*:/mappers/*.xml
+

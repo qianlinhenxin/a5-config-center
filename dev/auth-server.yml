@@ -1,0 +1,23 @@
+server:
+  port: ${server.port.auth}
+  tomcat:
+    uri-encoding: ${project.encoding.charset}
+spring:
+  application:
+    name: ${server.name.auth}
+
+feign:
+  hystrix:
+    enabled: true
+
+logging:
+    level:
+      com:
+        itgo:
+          auth:
+            realize:
+              dao: TRACE
+
+mybatis:
+  mapperLocations: classpath*:/mapper/**/*.xml
+
