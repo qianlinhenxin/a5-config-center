@@ -131,6 +131,6 @@ database:
       url: jdbc:postgresql://202.142.28.62:32770/aivms5
       username: postgres
       password: 123456
-   login:
+  login:
     name: qlhx
     password: qlhx123456
