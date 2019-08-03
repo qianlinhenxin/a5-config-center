@@ -9,7 +9,7 @@ eureka:
   #    enable-self-preservation: false  #自我保护机制 (不推荐关闭)
   client:
     service-url:
-      defaultZone: http://localhost:12001/eureka/
+      defaultZone: http://qlhx:qlhx123456localhost:12001/eureka/
   #      defaultZone: http://eureka1.com:12001/eureka/,http://eureka2.com:12002/eureka/,http://eureka3.com:12003/eureka/
   instance:
     instance-id: ${spring.application.name}-${server.port} #更改主机显示名称
@@ -25,6 +25,7 @@ server:
     facedevice: facedevice-service
     logger: gateway-service
     wechat: wechat-service
+    auth: auth-service
   port:
     base: 16001
     control: 16002
@@ -33,6 +34,7 @@ server:
     facedevice: 16005
     logger: 16007
     wechat: 16008
+    auth: 1609
 
 web:
   name:
@@ -44,6 +46,7 @@ web:
     gateway: web-gateway-service
     logger: web-logger-service
     wechat: web-wechat-service
+    auth: web-auth-service
   port:
     base: 16011
     control: 16012
@@ -53,6 +56,7 @@ web:
     gateway: 16016
     logger: 16017
     wechat: 16018
+    auth: 16019
 
 
 
@@ -76,6 +80,19 @@ spring:
   datasource:
       sql-script-encoding: ${project.encoding.charset}
       type: com.alibaba.druid.pool.DruidDataSource
+      filters: stat,wall,log4j
+      initialSize: 5
+      logSlowSql: true
+      maxActive: 20
+      maxWait: 60000
+      minEvictableIdleTimeMillis: 300000
+      minIdle: 5
+      testOnBorrow: false
+      testOnReturn: false
+      testWhileIdle: true
+      timeBetweenEvictionRunsMillis: 60000
+      validationQuery: SELECT 1 FROM DUAL
+
   http:
     encoding:
       charset: ${project.encoding.charset}
@@ -126,13 +143,13 @@ database:
       device-url: jdbc:mysql://202.142.28.62:33007/${database.datasource.facedevice.facedevice-dbName}?useSSL=true&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true
       device-username: '{cipher}AQANeaUl85JhUJjxe5gy9vGnqfnvm2p5M0cKqDqAfeOzHvKr3OVgNinnwJZso455XaVMRbgGWhAQra6lzYihhUeJYKHjm4+BF3Onr8hwdH433uF4P28u13IfrG1gjZGbzhst7k3QkW/qggZAFQB6l31lAtT4+0DKj+1HYVz0UIKMhijsVvCaPyw4s8IJnMXWlf6jMLdHoB1LRgWJ21IV7v+UfE4XtZOfQhM3wCL6cGuwj1tfMCcOlgTs1AjUeTUzTAUPX1hXxCviS8JBAhDir2hmGmQxWioAf6e89/1TONLIpknd9aRW5KM4SuQfayQTi1T6m3fyNw9StyDvUezMKsOin2naXFfrnOQhUa+K4aViBXxEoccp+z26ivzmUJTbNGI='
       device-password: '{cipher}AQCB+iRpVT8Lrf6pW9tg6140vcgs9pgMcKoHuhd12Zb5//KdRH1s514+udc+8WARKg48E09C8Z4OV9VeBBPX8N/Sk+TYGuHP9HUG+DlY3OhesnaHz9gqurvkNma/JG1qSHkxR+TKdcFzz62vxrht+ZEAU02lthsBxCzHYcrhv62LbqMhIpHYqC9Hk86HYC0FklqtR8JNbRtb6RprY9jHHe47VNIoyoR4vpIiJvbyFAn2fMsLDKI0+R6AZv7NRYAiE8qY45JK9qIu13//YbWdKJ1jKlL0uOFVSVzx1VsTt/8pguYE5LTwI55tEuTJFATdeAyS84Wdnh9y9uHofMGYDevQIPwsbxUVRzTABhVTEMFjOpH2FEsYFrCIV59ZVcwbouM='
-    wechat:
+wechat:
       wechat-dbName: '{cipher}AQAxoI0k4djrnhdrffTg9ILmqhBo6d4XXI/buEBZSszfFde3zJrh4ZMUGl4jRDo3mJGc46tcahJuKkmDOFN0c3RVWD6ieuSd9KVvaNGjKPtg7kZ0phRejDJVI1yCbXSPDUqW6w60dIfYZMELd6tGHnS3bXHTI3I3Knfa75a7W/jbyf1vRMWwJDWSL+EmtSE8nDZQaUcBabRpPIFJ2g4oxTnro+oUezV8jQjPGdBc5HlfL5t5Fi3WKlmiRRAxJQGgH8LvP7Dh1COjkYFGvk3hD+7OTaJhrK4sk58iXBAj7rwlTTQIv2NRdmYpA/MBUpcSUKkO9+3qNn5gX5iNzi5w3oZn68k0Ucid52dDFLZYg2kXXQF7z7VB67eCw8U/Rsy6JhI='
       wechat-driver-class-name: com.mysql.cj.jdbc.Driver
       wechat-url: jdbc:mysql://202.142.28.62:33007/${database.datasource.wechat.wechat-dbName}?useSSL=true&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true
       wechat-username: '{cipher}AQANeaUl85JhUJjxe5gy9vGnqfnvm2p5M0cKqDqAfeOzHvKr3OVgNinnwJZso455XaVMRbgGWhAQra6lzYihhUeJYKHjm4+BF3Onr8hwdH433uF4P28u13IfrG1gjZGbzhst7k3QkW/qggZAFQB6l31lAtT4+0DKj+1HYVz0UIKMhijsVvCaPyw4s8IJnMXWlf6jMLdHoB1LRgWJ21IV7v+UfE4XtZOfQhM3wCL6cGuwj1tfMCcOlgTs1AjUeTUzTAUPX1hXxCviS8JBAhDir2hmGmQxWioAf6e89/1TONLIpknd9aRW5KM4SuQfayQTi1T6m3fyNw9StyDvUezMKsOin2naXFfrnOQhUa+K4aViBXxEoccp+z26ivzmUJTbNGI='
       wechat-password: '{cipher}AQCB+iRpVT8Lrf6pW9tg6140vcgs9pgMcKoHuhd12Zb5//KdRH1s514+udc+8WARKg48E09C8Z4OV9VeBBPX8N/Sk+TYGuHP9HUG+DlY3OhesnaHz9gqurvkNma/JG1qSHkxR+TKdcFzz62vxrht+ZEAU02lthsBxCzHYcrhv62LbqMhIpHYqC9Hk86HYC0FklqtR8JNbRtb6RprY9jHHe47VNIoyoR4vpIiJvbyFAn2fMsLDKI0+R6AZv7NRYAiE8qY45JK9qIu13//YbWdKJ1jKlL0uOFVSVzx1VsTt/8pguYE5LTwI55tEuTJFATdeAyS84Wdnh9y9uHofMGYDevQIPwsbxUVRzTABhVTEMFjOpH2FEsYFrCIV59ZVcwbouM='
-    auth:
+      auth:
       auth-dbName: '{cipher}AQAxoI0k4djrnhdrffTg9ILmqhBo6d4XXI/buEBZSszfFde3zJrh4ZMUGl4jRDo3mJGc46tcahJuKkmDOFN0c3RVWD6ieuSd9KVvaNGjKPtg7kZ0phRejDJVI1yCbXSPDUqW6w60dIfYZMELd6tGHnS3bXHTI3I3Knfa75a7W/jbyf1vRMWwJDWSL+EmtSE8nDZQaUcBabRpPIFJ2g4oxTnro+oUezV8jQjPGdBc5HlfL5t5Fi3WKlmiRRAxJQGgH8LvP7Dh1COjkYFGvk3hD+7OTaJhrK4sk58iXBAj7rwlTTQIv2NRdmYpA/MBUpcSUKkO9+3qNn5gX5iNzi5w3oZn68k0Ucid52dDFLZYg2kXXQF7z7VB67eCw8U/Rsy6JhI='
       auth-driver-class-name: com.mysql.cj.jdbc.Driver
       auth-url: jdbc:mysql://202.142.28.62:33007/${database.datasource.auth.auth-dbName}?useSSL=true&serverTimezone=UTC&characterEncoding=utf8&useUnicode=true
