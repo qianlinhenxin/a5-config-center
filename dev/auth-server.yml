@@ -18,6 +18,14 @@ logging:
             realize:
               dao: TRACE
 
+#mybatis配置
 mybatis:
+  config-location: classpath:mybatis-config.xml
   mapperLocations: classpath*:/mapper/**/*.xml
+
+pagehelper:
+  helperDialect: mysql
+  params: count=countSql
+  reasonable: true
+  support-methods-arguments: true
 
