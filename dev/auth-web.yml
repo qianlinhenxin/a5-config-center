@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: ${web.name.auth}
-
-server:
-  port: ${web.port.auth}
-  tomcat:
-    uri-encoding: ${project.encoding.charset}
-
